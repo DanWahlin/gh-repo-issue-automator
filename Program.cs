@@ -16,7 +16,7 @@ namespace GhRepoIssueAutomator
         {
             string reposPath = "repos.txt";
             string promptsDir = "prompts";
-            string token = null;
+            string? token = null;
             bool dryRun = false;
 
             for (int i = 0; i < args.Length; i++)
@@ -48,21 +48,8 @@ namespace GhRepoIssueAutomator
 
             token ??= Environment.GetEnvironmentVariable("GITHUB_TOKEN") ?? Environment.GetEnvironmentVariable("GH_TOKEN");
 
-            if (string.IsNullOrWhiteSpace(token))
+            if (!ValidatePreconditions(token, reposPath, promptsDir))
             {
-                Console.Error.WriteLine("No GitHub token provided. Set GITHUB_TOKEN or GH_TOKEN, or pass --token <token>.");
-                return 1;
-            }
-
-            if (!File.Exists(reposPath))
-            {
-                Console.Error.WriteLine($"Repos file not found: {reposPath}");
-                return 1;
-            }
-
-            if (!Directory.Exists(promptsDir))
-            {
-                Console.Error.WriteLine($"Prompts folder not found: {promptsDir}");
                 return 1;
             }
 
@@ -74,18 +61,6 @@ namespace GhRepoIssueAutomator
             var promptFiles = Directory.GetFiles(promptsDir)
                 .Where(f => !Path.GetFileName(f).StartsWith("."))
                 .ToList();
-
-            if (repoLines.Count == 0)
-            {
-                Console.Error.WriteLine("No repositories found in repos file.");
-                return 1;
-            }
-
-            if (promptFiles.Count == 0)
-            {
-                Console.Error.WriteLine("No prompt files found in prompts folder.");
-                return 1;
-            }
 
             using var client = new HttpClient();
             client.DefaultRequestHeaders.UserAgent.ParseAdd("gh-repo-issue-automator/1.0");
@@ -166,7 +141,7 @@ namespace GhRepoIssueAutomator
             return 0;
         }
 
-        static (string owner, string repo) ParseOwnerRepo(string input)
+        static (string? owner, string? repo) ParseOwnerRepo(string input)
         {
             if (string.IsNullOrWhiteSpace(input)) return (null, null);
 
@@ -194,6 +169,29 @@ namespace GhRepoIssueAutomator
             Console.WriteLine("  --token, -t    GitHub token. If omitted the GITHUB_TOKEN or GH_TOKEN environment variables will be used.");
             Console.WriteLine("  --dry-run      Don't actually POST issues; just show what would be done.");
             Console.WriteLine();
+        }
+
+        static bool ValidatePreconditions(string? token, string reposPath, string promptsDir)
+        {
+            if (string.IsNullOrWhiteSpace(token))
+            {
+                Console.Error.WriteLine("No GitHub token provided. Set GITHUB_TOKEN or GH_TOKEN, or pass --token <token>.");
+                return false;
+            }
+
+            if (!File.Exists(reposPath))
+            {
+                Console.Error.WriteLine($"Repos file not found: {reposPath}");
+                return false;
+            }
+
+            if (!Directory.Exists(promptsDir))
+            {
+                Console.Error.WriteLine($"Prompts folder not found: {promptsDir}");
+                return false;
+            }
+
+            return true;
         }
     }
 }
