@@ -1,0 +1,7 @@
+# List target repositories (one per line). Examples:
+# octocat/Hello-World
+# https://github.com/octocat/Hello-World
+
+# Replace these example lines with your target repos:
+owner1/repo1
+owner2/repo2
