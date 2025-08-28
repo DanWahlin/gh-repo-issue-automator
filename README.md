@@ -4,7 +4,13 @@ A small .NET CLI that reads a list of GitHub repositories and posts each file in
 
 ## Quick usage
 
-1. Set a GitHub token in your environment: GITHUB_TOKEN (or GH_TOKEN), or pass `--token`.
+1. Set a GitHub token in your environment: GITHUB_TOKEN (or GH_TOKEN), or pass `--token`. 
+
+```bash
+dotnet user-secrets init
+dotnet user-secrets set "GITHUB_TOKEN" "your_token_here"
+```
+
 2. Populate `repos.txt` with lines like `owner/repo` (or full GitHub URLs). Lines starting with `#` are ignored.
 3. Put two (or more) prompt files in the `prompts` folder; filenames will be used as issue titles and the file content as the issue body.
 4. Run the app:

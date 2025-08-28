@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("gh-repo-issue-automator")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1a96d58fd54a31cf36d35307e0dac1eda04da787")]
 [assembly: System.Reflection.AssemblyProductAttribute("gh-repo-issue-automator")]
 [assembly: System.Reflection.AssemblyTitleAttribute("gh-repo-issue-automator")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
