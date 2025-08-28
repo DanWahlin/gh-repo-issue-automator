@@ -1,0 +1,64 @@
+# Ignore build outputs
+bin/
+obj/
+out/
+
+# Visual Studio files
+.vs/
+*.user
+*.suo
+*.userosscache
+
+# Rider
+.idea/
+
+# VS Code
+.vscode/
+
+# NuGet packages
+*.nupkg
+packages/
+.nuget/
+
+# Dotnet artifacts
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Test results
+TestResults/
+
+# Publish outputs
+publish/
+
+# Logs
+*.log
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+tmp/
+
+# Coverage results
+coverage/
+*.coverage
+*.coveragexml
+
+# Secrets (do not commit secrets.json if accidentally generated)
+secrets.json
+
+# Others
+*.pidb
+*.svclog
+*.userprefs
+
+# Ignore local JetBrains and VS caches
+_ReSharper*/
+*.DotSettings.user
+
+# npm/node
+node_modules/
