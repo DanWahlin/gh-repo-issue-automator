@@ -1,6 +1,8 @@
-return await RunAsync(args);
+// Add config usings
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.UserSecrets;
 
-// --- Top-level functions ---
+return await RunAsync(args);
 
 async Task<int> RunAsync(string[] args)
 {
@@ -18,7 +20,13 @@ async Task<int> RunAsync(string[] args)
         return 0;
     }
 
-    token ??= Environment.GetEnvironmentVariable("GITHUB_TOKEN") ?? Environment.GetEnvironmentVariable("GH_TOKEN");
+    // load user-secrets (fallback to environment variables separately)
+    var config = new ConfigurationBuilder()
+        .AddUserSecrets(System.Reflection.Assembly.GetExecutingAssembly(), optional: true)
+        .Build();
+
+    token ??= Environment.GetEnvironmentVariable("GITHUB_TOKEN") ?? Environment.GetEnvironmentVariable("GH_TOKEN")
+             ?? config["GITHUB_TOKEN"] ?? config["GH_TOKEN"];
 
     if (!ValidatePreconditions(token, reposPath, promptsDir))
     {
