@@ -1,6 +1,6 @@
 # GitHub Repository Issue Automator
 
-A small .NET CLI that reads a list of GitHub repositories and posts each file in a `prompts` folder as an issue to each repository. GitHub Copilot Coding Agent can then be assigned to the issue to process the prompts.
+A small .NET CLI that reads a list of GitHub repositories and posts each file in a `prompts` folder as an issue to each repository. [GitHub Copilot Coding Agent](https://docs.github.com/en/copilot/how-tos/use-copilot-agents/coding-agent) can then be assigned to the issue to process the prompts. Useful when a list of repos need the same issue created for processing by Coding Agent.
 
 ## Quick usage
 
