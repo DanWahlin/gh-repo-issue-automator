@@ -170,11 +170,57 @@ async Task PostIssuesToRepos(HttpClient client, List<string> repoLines, List<str
                 continue;
             }
 
+            // check for existing issue with same title
+            if (await IssueExistsAsync(client, owner, repo, title))
+            {
+                Console.WriteLine($"   Skipping: issue with title '{title}' already exists in {owner}/{repo}.");
+                continue;
+            }
+
             await PostIssue(client, owner, repo, title, body);
 
             await Task.Delay(500);
         }
     }
+}
+
+async Task<bool> IssueExistsAsync(HttpClient client, string owner, string repo, string title)
+{
+    try
+    {
+        var url = $"https://api.github.com/repos/{owner}/{repo}/issues?state=all&per_page=100";
+        using var response = await client.GetAsync(url);
+        var respContent = await response.Content.ReadAsStringAsync();
+
+        if (!response.IsSuccessStatusCode)
+        {
+            Console.Error.WriteLine($"   Warning: could not check existing issues: {(int)response.StatusCode} {response.ReasonPhrase}");
+            Console.Error.WriteLine($"   Response: {respContent}");
+            return false;
+        }
+
+        using var doc = System.Text.Json.JsonDocument.Parse(respContent);
+        if (doc.RootElement.ValueKind == System.Text.Json.JsonValueKind.Array)
+        {
+            foreach (var item in doc.RootElement.EnumerateArray())
+            {
+                if (item.TryGetProperty("title", out var t))
+                {
+                    var existingTitle = t.GetString();
+                    if (!string.IsNullOrEmpty(existingTitle) && string.Equals(existingTitle, title, StringComparison.OrdinalIgnoreCase))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+    catch (Exception ex)
+    {
+        Console.Error.WriteLine($"   Exception checking existing issues: {ex.Message}");
+    }
+
+    return false;
 }
 
 async Task PostIssue(HttpClient client, string owner, string repo, string title, string body)
