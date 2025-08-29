@@ -1,6 +1,0 @@
-# List target repositories (one per line). Examples:
-# octocat/Hello-World
-
-# Replace these example lines with your target repos:
-microsoft/CopilotAdventures
-microsoft/MicrosoftCloud

@@ -1,3 +1,7 @@
+.env*
+repos.txt
+repos.md
+
 # Ignore build outputs
 bin/
 obj/

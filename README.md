@@ -11,18 +11,26 @@ dotnet user-secrets init
 dotnet user-secrets set "GITHUB_TOKEN" "your_token_here"
 ```
 
-2. Populate `repos.txt` with lines like `owner/repo` (or full GitHub URLs). Lines starting with `#` are ignored.
+2. Add a `repos.md` file into the root of the project with lines like `owner/repo` (or full GitHub URLs). Lines starting with `#` are ignored. Example:
+
+```markdown
+# List target repositories (one per line). Examples:
+# octocat/Hello-World
+
+# Replace this example line with your target repos:
+[org]/[repo_name]
+```
 3. Put two (or more) prompt files in the `prompts` folder; filenames will be used as issue titles and the file content as the issue body.
 4. Run the app:
 
 ```
 dotnet restore
-dotnet run -- --repos repos.txt --prompts prompts
+dotnet run -- --repos repos.md --prompts prompts
 ```
 
 Options
 
-- `--repos, -r` Path to repos file (default `repos.txt`).
+- `--repos, -r` Path to repos file (default `repos.md`).
 - `--prompts, -p` Path to prompts folder (default `prompts`).
 - `--token, -t` GitHub token (optional if GITHUB_TOKEN/GH_TOKEN env var is set).
 - `--dry-run` Show what would be done without posting.

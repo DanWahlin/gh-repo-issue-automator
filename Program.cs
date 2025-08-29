@@ -58,7 +58,7 @@ async Task<int> RunAsync(string[] args)
 
 CliOptions ParseArgs(string[] args)
 {
-    string reposPath = "repos.txt";
+    string reposPath = "repos.md";
     string promptsDir = "prompts";
     string? token = null;
     bool dryRun = false;
@@ -242,7 +242,7 @@ void PrintUsage()
     Console.WriteLine("  dotnet run -- [--repos <path>] [--prompts <path>] [--token <token>] [--dry-run]");
     Console.WriteLine();
     Console.WriteLine("Options:");
-    Console.WriteLine("  --repos, -r    Path to repos file (default: repos.txt). Each line should be 'owner/repo' or a GitHub URL. Lines starting with # are ignored.");
+    Console.WriteLine("  --repos, -r    Path to repos file (default: repos.md). Each line should be 'owner/repo' or a GitHub URL. Lines starting with # are ignored.");
     Console.WriteLine("  --prompts, -p  Path to prompts folder (default: prompts). All files in the folder will be submitted as issues.");
     Console.WriteLine("  --token, -t    GitHub token. If omitted the GITHUB_TOKEN or GH_TOKEN environment variables will be used.");
     Console.WriteLine("  --dry-run      Don't actually POST issues; just show what would be done.");
