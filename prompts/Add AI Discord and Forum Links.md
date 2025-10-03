@@ -6,6 +6,11 @@ Locate the README.md file in the root of the project and add the following conte
 
 **RULES**:
 - ONLY MODIFY the README.md file at the root of the repository. DO NOT MODIFY any other files.
+- If the "Getting Help" section does not already exists, add it to the bottom of the README.md, but before "Contributing" and "Trademarks" section if they exists at the bottom.
+- If there's a badges section in the README.md that DO NOT already include one or more badges named "AI Community", "Discord" or "AI Discord" (or similar):
+  * also add this badge after the Codespaces one (if applicable) `[![Join Azure AI Foundry Discord](https://img.shields.io/badge/Discord-Azure_AI_Community-blue?style=flat-square&logo=discord&color=5865f2&logoColor=fff)](https://aka.ms/foundry/discord)`
+  * if needed, adapt the badge styling to match the other existing badges
+  * if there's already one or more badges referring to the AI Community Discord, don't change it and don't add a new one
 
 ```
 ## Getting Help
